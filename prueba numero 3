@@ -1,0 +1,155 @@
+import random
+from datetime import datetime
+
+def verificar_patente(patente):
+    vocales="AEIOU"
+    if len(patente)!=6:
+        return 0
+    if patente[:4].isalpha() and patente [4:].isdigit() and not any(v in patente [4:].upper()for v in vocales):
+        return 1
+    if patente[:2].isalpha() and patente [2:].isdigit() and not any( v in patente [:2].upper()for v in vocales):
+        return 1
+    return 0
+def grabar(datos,multas):
+    registro=[]
+    registro.append(datos["Tipo"])
+    registro.append(datos["Patente"].upper())
+    registro.append(datos["Marca"])
+    registro.append(datos["Precio"])
+    registro.append(datos["duenno"])
+    registro.append(datos["fecha"])
+    registro.append(multas)
+    registro.append(random.randint(1500,3500))
+    registro.append(random.randint(1500,3500))
+    return registro
+def buscar (patente,registro):
+    patente=patente.upper()
+    lili=0
+    cont=1
+    for x in registros:
+        if patente==x[1]:
+            lili=1
+            print("\n Tipo:",x[0])
+            print("Patente:",x[1])
+            print("Marca:",x[2])
+            print("Precio:",x[3])
+            print("Dueño::",x[4])
+            print("Fecha:",x[5])
+            if len(x[6])==0:
+                print("\nNo se encontraron multas.")
+            elif len(x[6])==1:
+                print("\nSe encontro una multa:")
+            else:
+                print("\nSe encontraron",len(x[6]),"multas.")
+            for multa in x[6]:
+                if len(multa)>0:
+                    print("\nMulta,cont")
+                    print("\tMonto",multa[0])
+                    print("\tFecha",Multa[1])
+                    contr+=1
+    if lili==0:
+        print("\nNo se encontraron registros")
+        return 0
+def certificados(patente,registros):
+    patente=patente.upper()
+    lili=0
+    cont=1
+    for x in registros:
+        if patente==x[1]:
+            lili=1
+            print("\n")
+            print("")
+            print("Certificado de Emision de Contaminantes")
+            print("patente:",x[1])
+            print("Dueño:",x[4])
+            print("Valor:",x[7])
+            print("_____APROBADO_____")
+            print("")
+            print("\n")
+            print("")
+            print("Certificado de Anotaciones Vigentes")
+            print("patente:",x[1])
+            print("Dueño:",x[4])
+            print("Valor:",x[8])
+            print("_____APROBADO_____")
+            print("")
+            if len(x[6])==0:
+                print("\nNo se encontraron multas.")
+            elif len(x[6])==1:
+                print("\nSe encontro 1 multa:")
+            else:
+                print("\nSe encontraron",len(x[6]),"multas.")
+
+                for multas in x[6]:
+                    if len(multa)>0:
+                        print("\nMulta:",cont)
+                        print("\tMonto:",MULTA[0])
+                        print("\tFecha:",multa[1])
+                        cont+=1
+    if lili==0:
+        print("\nNo se encontraron registros")
+        return 0
+registros=[]
+menu=0
+while menu!=4:
+    print("\n1. Grabar")
+    print("\n2. Buscar")
+    print("\n3. Imprimir certificados")
+    print("\n4. Salir")
+    menu=int(input("\nEscoja que desea hacer: "))
+    if menu<1 or menu>4:
+        print("\nOpcion invalida")
+    if menu==1:
+        datos={"Tipo":"x","patente":"x","Marca":"x,precio:0","duenno":"x","Fecha":"x"}
+        multas=[]
+        pat=0
+        datos["tipo"]=input("\nIngrese tipo de vehiculo: ")
+        while pat==0:
+            datos["patente"]=input("Ingrese patente del vehiculo: ")
+            pat=verificar_patente(datos["patente"])
+            if pat==0:
+                print("patente invalida")
+        while len(datos["marca"])<2 or len(datos["Marca"])>15:
+            datos["Marca"]=input("Ingrese marca del vehiculo: ")
+            if len(datos["Marca"])<2 or len(datos["Marca"])>15:
+                print("La marca debe tener entre 2 a 15 caracteres")
+        while datos["precio"]<5000000:
+            print["El precio debe ser mas de $5000000"]
+        datos["duenno"]=input("ingrese nombre del dueño:")
+        while true:
+            datos["fecha"]=input("ingrese fecha de registro del vehiculo(aaa/mm/dd):")
+            try:
+                fecha=datetime.strptime(datos["fecha"],'%Y/%m/%d').strftime('%d-%m-%Y')
+                print("\nLa fecha de registro de vehiculo es: ")
+                print(srt(fecha))
+            except ValueError:
+                print("\nNo ha ingresado una fecha correcta..\n")
+            else:
+                break
+        mult=int(input("\n¿Tiene multas?: \n1. si \n2 No \n"))
+        while mult==1:
+            multas2=[]
+            multas2.append(int(input("ingrese el monto de la multa: ")))
+            while true:
+                multas2.append(input("ingrese la fecha de la multa(aaaa/mm/dd): "))
+                try:
+                    fecha=datetime.strptime(multas2[-1],'%Y/%m/%d').strftime('%d-%n-%Y')
+                    print("\La fecha de la multa es: ")
+                    print(str(fecha))
+                except ValueError:
+                    print("\nNo ha ingresado una fecha correcta..\n")
+                else:
+                    break
+                multas.append(multas2)
+                mult=int(input("\n¿Tiene otra multa?:\n1 si\n2 no \n"))
+            registros.append(grabar(datos,multas))
+        if menu==2:
+            patente=input("\nIngrese patente que quiere buscar: ")
+            buscar(patente,registro)
+            input("\nPresione enter para volver al Menú")
+        if menu==3:
+            patente=input("\nIngrese patente que quiere buscar: ")
+            cartificados(patente,registro)
+            input("\nPresione enter para volver al Menú")
+        if menu==4:
+            print("\nUsted a utilizado la opcion de salida\nCreado por:Benjamín Muñoz\nVersion:1.3.7\n")
